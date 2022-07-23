@@ -2,26 +2,37 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const connection = require('./database/database');
-// const bootstrap = require('bootstrap');
+const categoriesController = require('./categories/CategoriesController');
+const articlesController = require('./articles/ArticlesController');
+
+const Article = require('./articles/Article');
+const Category = require('./categories/Category');
 
 //view engine
 app.set('view engine', 'ejs');
 
 //Static
-app.use(express.static('public')); //arquivos estaticos
+app.use(express.static('public')); //files static
 
-//body parser para trabalhar com formulatio e formatos que sao encaminhados
-app.use(bodyParser.urlencoded({extended: false})); //aceitar dados de formulario
-app.use(bodyParser.json()); // aceitar dados formato json
+//access files the node_modules
+app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css/'));
+app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js/')); 
+
+//body parser to work with form and formats that are forwarded
+app.use(bodyParser.urlencoded({extended: false})); //to accept data the form
+app.use(bodyParser.json()); // to accept data format json
 
 //Database
-connection // chamando o objeto e mandado ser authenticado
+connection // calling the object for be authenticated
     .authenticate()
     .then(() => {
         console.log('Conexao feita com sucesso!');
     }).catch((error) => {
         console.log(error);
     })
+
+app.use('/', categoriesController);
+app.use('/', articlesController);
 
 app.get('/', (req, res) => {
     res.render('index');
