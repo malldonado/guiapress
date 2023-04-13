@@ -1,3 +1,3 @@
-# Guiapress
+# 🖥 Guiapress
 
-Este é um sistema desenvolvido com foco em blog de artigos, onde somente os usuários cadastrados podem cadastrar, editar e excluir artigos ou categorias do sistema
+📕 This is a system developed with a focus on article blogs, where only registered users can register, edit and delete articles or categories from the system.
